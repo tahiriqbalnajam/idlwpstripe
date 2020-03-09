@@ -92,10 +92,35 @@ class Idlwpstripe_Admin {
 			array( 'label_for' => $this->option_name . '_strip_api_key' )
 		);
 
+		add_settings_section(
+			$this->option_name . '_payemnt',
+			__( 'Payment', $this->plugin_name ),
+			array( $this, $this->option_name . '_payment' ),
+			$this->plugin_name
+		);
+
+		add_settings_field(
+			$this->option_name . '_payment_mode',
+			__( 'Fixed amount?', $this->plugin_name ),
+			array( $this, $this->option_name . '_payment_mode' ),
+			$this->plugin_name,
+			$this->option_name . '_payemnt',
+			array( 'label_for' => $this->option_name . '_payment_mode' )
+		);
+
+		add_settings_section(
+			$this->option_name . '_fixed_amount',
+			__( 'Fixed amount', $this->plugin_name ),
+			array( $this, $this->option_name . '_fixed_amount' ),
+			$this->plugin_name
+		);
+
 		register_setting( $this->plugin_name, $this->option_name . '_strip_publishable_key');
 		register_setting( $this->plugin_name, $this->option_name . '_strip_api_key' );
 		register_setting( $this->plugin_name, $this->option_name . '_currency' );
 		register_setting( $this->plugin_name, $this->option_name . '_product_price', 'intval' );
+		register_setting( $this->plugin_name, $this->option_name . '_payment_mode' );
+		register_setting( $this->plugin_name, $this->option_name . '_fixed_amount' );
 	}
 
 	/**
@@ -131,6 +156,30 @@ class Idlwpstripe_Admin {
 	public function idlwpstripe_strip_api_key() {
 		$strip_api_key = get_option( $this->option_name . '_strip_api_key' );
 		echo '<input type="text" name="' . $this->option_name . '_strip_api_key' . '" id="' . $this->option_name . '_strip_api_key' . '" value="' . $strip_api_key . '"> ';
+	}
+
+	public function idlwpstripe_payment() {
+		echo '<p>' . __( 'Set that you want fixed amount or user can put an amount.', $this->plugin_name ) . '</p>';
+	}
+
+	public function idlwpstripe_payment_mode() {
+		$payment_mode = get_option( $this->option_name . '_payment_mode' );
+		if($payment_mode == "fixed"){
+			$fixed = "checked";
+			$userdefine = "";
+		}
+		else {
+			$fixed = "";
+			$userdefine = "checked";
+		}
+
+		echo 'Yes: <input type="radio" '.$fixed.' name="' . $this->option_name . '_payment_mode' . '" id="' . $this->option_name . '_payment_mode_fixed' . '" value="fixed">';
+		echo 'No: <input type="radio" '.$userdefine.' name="' . $this->option_name . '_payment_mode' . '" id="' . $this->option_name . '_payment_mode_fixed' . '" value="user_define">';
+	}
+
+	public function idlwpstripe_fixed_amount() {
+		$fixed_amount = get_option( $this->option_name . '_fixed_amount' );
+		echo '<input type="text" name="' . $this->option_name . '_fixed_amount' . '" id="' . $this->option_name . '_fixed_amount' . '" value="' . $fixed_amount . '"> ';
 	}
 
 }
