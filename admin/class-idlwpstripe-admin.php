@@ -57,15 +57,6 @@ class Idlwpstripe_Admin {
 		);
 
 		add_settings_field(
-			$this->option_name . '_product_price',
-			__( 'Product Price', $this->plugin_name ),
-			array( $this, $this->option_name . '_product_price' ),
-			$this->plugin_name,
-			$this->option_name . '_general',
-			array( 'label_for' => $this->option_name . '_product_price' )
-		);
-
-		add_settings_field(
 			$this->option_name . '_currency',
 			__( 'Product Price', $this->plugin_name ),
 			array( $this, $this->option_name . '_currency' ),
@@ -118,7 +109,6 @@ class Idlwpstripe_Admin {
 		register_setting( $this->plugin_name, $this->option_name . '_strip_publishable_key');
 		register_setting( $this->plugin_name, $this->option_name . '_strip_api_key' );
 		register_setting( $this->plugin_name, $this->option_name . '_currency' );
-		register_setting( $this->plugin_name, $this->option_name . '_product_price', 'intval' );
 		register_setting( $this->plugin_name, $this->option_name . '_payment_mode' );
 		register_setting( $this->plugin_name, $this->option_name . '_fixed_amount' );
 	}

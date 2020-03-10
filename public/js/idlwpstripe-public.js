@@ -88,30 +88,6 @@
 			});
 		})
 
-		function chargenow() {
-			btnsbm.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creating User..');
-			$.ajax({
-				url: idl_ajax.ajax_url, 
-				data: $("#idlusersingups").serialize()+"&action=singup",
-				method:'post',
-				dataType: 'json',
-				success: function(res){
-					if(res.status == "success")
-					{
-						$.notify("check your email for user creation" , {autoHide: false,className: "sucess",style: 'bootstrap'});
-						btnsbm.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Redirecting..');	
-						window.location.replace("https://findmeadrivingtest.co.uk/theorytest/success");
-					}	
-					else
-					{
-						btnsbm.prop('disabled', false).html('Pay');
-						$.notify(res.mgs , {autoHide: false,className: "error",style: 'bootstrap'});
-					}					
-						
-				}
-			});
-		}
-
 		// Callback to handle the response from stripe
 		function handleServerResponse(response) {
 			if (response.status == "error") {
@@ -125,7 +101,7 @@
 				handleAction(response);
 			} else if(response.status == "success") {
 				$.notify("Payment Done" , {autoHide: true,className: "sucess",style: 'bootstrap'});
-				chargenow();
+				btnsbm.prop('disabled', false).html('Payment Done');
 			}
 		}
 

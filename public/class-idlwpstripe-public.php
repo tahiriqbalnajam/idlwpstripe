@@ -18,6 +18,7 @@ class Idlwpstripe_Public {
         $this->product_price = get_option( $this->option_name . '_product_price' );
         $this->strip_publishable_key = get_option( $this->option_name . '_strip_publishable_key' );
         $this->strip_api_key = get_option( $this->option_name . '_strip_api_key' );
+        $this->product_price = get_option( $this->option_name . '_fixed_amount' );
 
 	}
 
@@ -103,7 +104,7 @@ class Idlwpstripe_Public {
             $intent = \Stripe\PaymentIntent::create([
                 'payment_method' => $paymentid,
                 'amount' => $Total,
-                'currency' => 'GBP',
+                'currency' => $this->currency,
                 'customer' => $customer,
                 'metadata' => $metadata,
                 'description' => $email,
